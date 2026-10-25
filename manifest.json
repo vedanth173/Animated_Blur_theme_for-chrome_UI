@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Deep Black Frosted Glass New Tab",
+  "name": "Google New Tab with animated Frosted Glass",
   "version": "1.0",
-  "description": "Custom deep black new tab page with frosted glass search bar",
+  "description": "blure_glass_theam_animation",
   "chrome_url_overrides": {
     "newtab": "newtab.html"
   }

@@ -12,6 +12,24 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- Top-Right Bookmark Symbol Button -->
+  <button id="bookmark-toggle-btn" class="bookmark-toggle-btn" title="Toggle Bookmarks">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+    </svg>
+  </button>
+
+  <!-- Frosted Glass Bookmark Bar (Hidden by default) -->
+  <div id="bookmark-bar" class="bookmark-bar hidden">
+    <!-- Sample Bookmarks (You can replace or dynamically fetch these) -->
+    <a href="https://github.com" class="bookmark-item">GitHub</a>
+    <a href="https://leetcode.com" class="bookmark-item">LeetCode</a>
+    <a href="https://mail.google.com" class="bookmark-item">Gmail</a>
+    <a href="https://linkedin.com" class="bookmark-item">LinkedIn</a>
+  </div>
+
+
   <!-- Background Video Layer (Hidden unless a video is uploaded) -->
   <video id="bg-video" class="bg-video hidden" autoplay loop muted playsinline></video>
   <div id="bg-overlay" class="bg-overlay hidden"></div>
