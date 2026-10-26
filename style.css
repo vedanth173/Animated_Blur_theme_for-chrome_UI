@@ -26,7 +26,7 @@ body {
   transition: background-image 0.4s ease;
 }
 
-/* Slower, Buttery-Smooth Entrance Keyframes */
+/* Slower, Buttery-Smooth Entrance Keyframes (Opacity & Translate Only to Protect Glass Blur) */
 @keyframes smoothDropIn {
   0% {
     opacity: 0;
@@ -97,7 +97,7 @@ body:has(.glass-search-box:hover) .bg-video {
 }
 
 /* =========================================
-   2. True Frosted Glass Clock (Pinned to Top)
+   2. True Frosted Glass Clock (Glass Effect on Numbers Only)
    ========================================= */
 
 .hyper-clock-wrapper {
@@ -105,18 +105,18 @@ body:has(.glass-search-box:hover) .bg-video {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 0px;
-  margin-bottom: 130px;
+  margin-top: 30px;
+  margin-bottom: 170px;
   user-select: none;
   pointer-events: none;
-  animation: smoothDropIn 1.1s 0.05s var(--smooth-slow) backwards;
+  animation: smoothDropIn 3.5s 0.15s var(--smooth-slow) backwards;
   will-change: opacity, transform;
 }
 
 .hyper-date {
-  font-size: 1.05rem;
+  font-size: 0.98rem;
   font-weight: 500;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   color: rgba(255, 255, 255, 0.85);
   margin-bottom: 8px;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
@@ -124,12 +124,14 @@ body:has(.glass-search-box:hover) .bg-video {
 
 .clock-glass-stage {
   position: relative;
-  width: 440px;
-  height: 155px;
+  width: 380px;
+  height: 110px;
   display: flex;
   align-items: center;
   justify-content: center;
-  filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.8));
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .clock-svg {
@@ -139,22 +141,28 @@ body:has(.glass-search-box:hover) .bg-video {
   height: 100%;
   z-index: 2;
   overflow: visible;
+  /* Applies the frosted glass blur and saturation directly to the vector shapes */
+  backdrop-filter: blur(100px) saturate(190%);
+  -webkit-backdrop-filter: blur(100px) saturate(190%);
 }
 
 .svg-clock-font {
-  font-family: "Big Shoulders Display", Impact, sans-serif;
-  font-size: 190px;
+  font-family: "Big Shoulders Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 100px;
   font-weight: 900;
   letter-spacing: 1px;
   font-variant-numeric: tabular-nums;
 }
 
-.svg-clock-rim {
-  fill: url(#glass-fill-grad);
-  stroke: url(#glass-rim-grad);
-  stroke-width: 2.2px;
+.svg-clock-glass {
+  fill: rgba(255, 255, 255, 0.15);
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 1.5px;
   stroke-linejoin: round;
+  stroke-linecap: round;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.9));
 }
+
 
 /* =========================================
    3. Frosted Glass Search Bar (Slower Smooth Entrance)
@@ -173,7 +181,7 @@ body:has(.glass-search-box:hover) .bg-video {
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85),
               inset 0 1px 1px rgba(255, 255, 255, 0.18);
   transition: all 0.35s var(--ease-out);
-  animation: smoothDropIn 1.1s 0.15s var(--smooth-slow) backwards,
+  animation: smoothDropIn 3.5s 0.15s var(--smooth-slow) backwards,
              subtlePulse 5s ease-in-out infinite alternate;
   will-change: opacity, transform;
 }
@@ -250,6 +258,7 @@ body:has(.glass-search-box:hover) .bg-video {
 }
 
 .glass-tile {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -268,13 +277,14 @@ body:has(.glass-search-box:hover) .bg-video {
   will-change: opacity, transform;
 }
 
-.glass-tile:nth-child(1) { animation-delay: 0.22s; }
+.glass-tile:nth-child(1) { animation-delay: 0.20s; }
 .glass-tile:nth-child(2) { animation-delay: 0.28s; }
-.glass-tile:nth-child(3) { animation-delay: 0.34s; }
-.glass-tile:nth-child(4) { animation-delay: 0.40s; }
-.glass-tile:nth-child(5) { animation-delay: 0.46s; }
-.glass-tile:nth-child(6) { animation-delay: 0.52s; }
-.glass-tile:nth-child(7) { animation-delay: 0.58s; }
+.glass-tile:nth-child(3) { animation-delay: 0.36s; }
+.glass-tile:nth-child(4) { animation-delay: 0.44s; }
+.glass-tile:nth-child(5) { animation-delay: 0.52s; }
+.glass-tile:nth-child(6) { animation-delay: 0.60s; }
+.glass-tile:nth-child(7) { animation-delay: 0.68s; }
+.glass-tile:nth-child(n+8) { animation-delay: 0.76s; }
 
 .tile-icon {
   width: 44px;
@@ -303,6 +313,9 @@ body:has(.glass-search-box:hover) .bg-video {
   font-weight: 500;
   letter-spacing: 0.2px;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 72px;
   transition: color 0.25s ease;
 }
 
@@ -333,7 +346,7 @@ body:has(.glass-search-box:hover) .bg-video {
 }
 
 /* =========================================
-   5. Bottom-Right Edit Icon & Glass Menu
+   5. Bottom-Right Hover-Expand Edit Icon & Glass Menu
    ========================================= */
 
 .bg-controls {
@@ -345,7 +358,7 @@ body:has(.glass-search-box:hover) .bg-video {
   align-items: flex-end;
   gap: 12px;
   z-index: 30;
-  animation: smoothDropIn 1.1s 0.5s var(--smooth-slow) backwards;
+  animation: smoothDropIn 3.1s 0.5s var(--smooth-slow) backwards;
   will-change: opacity, transform;
 }
 
@@ -424,14 +437,13 @@ body:has(.glass-search-box:hover) .bg-video {
 .glass-edit-btn:active {
   transform: scale(0.96);
 }
-}
 
 .glass-menu {
   display: flex;
   flex-direction: column;
   gap: 4px;
   padding: 8px;
-  min-width: 170px;
+  min-width: 190px;
   border-radius: 18px;
   background: rgba(20, 20, 22, 0.65);
   backdrop-filter: blur(28px) saturate(190%);
@@ -484,6 +496,13 @@ body:has(.glass-search-box:hover) .bg-video {
   color: #ffffff;
 }
 
+.menu-divider {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 2px;
+  padding-bottom: 11px;
+  border-radius: 12px 12px 0 0;
+}
+
 .reset-item {
   color: #ff6b6b;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -510,7 +529,7 @@ body:has(.glass-search-box:hover) .bg-video {
   z-index: 20;
   user-select: none;
   pointer-events: none;
-  animation: greeting-enter 1.2s 0.5s var(--smooth-slow) both;
+  animation: greeting-enter 3.2s 0.5s var(--smooth-slow) both;
   will-change: opacity, transform;
 }
 
@@ -561,7 +580,7 @@ body:has(.glass-search-box:hover) .bg-video {
   width: 0;
   padding-right: 6px;
   border-right: 2px solid rgba(255, 255, 255, 0.6);
-  animation: typing 1.2s 1.8s steps(20, end) forwards,
+  animation: typing 1.2s 2.8s steps(20, end) forwards,
              blink 0.75s step-end infinite,
              remove-cursor 0s 3.0s forwards;
 }
@@ -580,17 +599,8 @@ body:has(.glass-search-box:hover) .bg-video {
   to { border-right: none; }
 }
 
-.hidden {
-  display: none !important;
-}
-
-
 /* =========================================
-   Custom New Tab Bookmark Bar (Right-Aligned & Vertical)
-   ========================================= */
-
-/* =========================================
-   Hover-Expand Bookmark Button & Vertical Menu
+   7. Top-Right Hover-Expand Bookmark Button & Vertical Menu
    ========================================= */
 
 .bookmark-wrapper {
@@ -601,6 +611,8 @@ body:has(.glass-search-box:hover) .bg-video {
   flex-direction: column;
   align-items: flex-end;
   z-index: 30;
+  animation: smoothDropIn 3.1s 0.45s var(--smooth-slow) backwards;
+  will-change: opacity, transform;
 }
 
 /* Expanding Pill Button */
@@ -693,7 +705,7 @@ body:has(.glass-search-box:hover) .bg-video {
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9),
               inset 0 1px 1px rgba(255, 255, 255, 0.18);
   transform-origin: top right;
-  
+
   /* Hidden state (smoothly transitions in on hover) */
   opacity: 0;
   visibility: hidden;
@@ -725,6 +737,7 @@ body:has(.glass-search-box:hover) .bg-video {
 }
 
 .bookmark-item {
+  position: relative;
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   font-size: 0.82rem;
@@ -740,4 +753,208 @@ body:has(.glass-search-box:hover) .bg-video {
   background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
   transform: translateX(2px);
+}
+
+/* =========================================
+   8. Add Shortcut / Bookmark Modal & Delete Button
+   ========================================= */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeInModal 0.25s var(--ease-out) forwards;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.glass-modal {
+  width: 100%;
+  max-width: 340px;
+  padding: 22px;
+  border-radius: 22px;
+  background: rgba(22, 22, 25, 0.78);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95),
+              inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  animation: menuPop 0.25s var(--ease-out) forwards;
+}
+
+.modal-title {
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  letter-spacing: 0.3px;
+}
+
+#custom-item-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.88rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.modal-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.modal-input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.modal-btn {
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.cancel-btn {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.cancel-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.save-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #000000;
+  font-weight: 600;
+}
+
+.save-btn:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.25);
+}
+
+/* Subtle delete button on custom added shortcuts & bookmarks */
+.delete-custom-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.bookmark-item .delete-custom-btn {
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+}
+
+.glass-tile:hover .delete-custom-btn,
+.bookmark-item:hover .delete-custom-btn {
+  opacity: 1;
+}
+
+.delete-custom-btn:hover {
+  background: #ff5252;
+  color: #ffffff;
+}
+
+.hidden {
+  display: none !important;
+}
+
+
+/* =========================================
+   Removal Modal & Selection List
+   ========================================= */
+
+.remove-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  margin-bottom: 12px;
+  padding-right: 4px;
+}
+
+.remove-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 0.84rem;
+}
+
+.remove-item-row button {
+  background: rgba(255, 82, 82, 0.15);
+  border: 1px solid rgba(255, 82, 82, 0.3);
+  color: #ff8787;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.75srem;
+  transition: all 0.2s ease;
+}
+
+.remove-item-row button:hover {
+  background: #ff5252;
+  color: #ffffff;
+}
+
+.empty-notice {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 12px 0;
 }

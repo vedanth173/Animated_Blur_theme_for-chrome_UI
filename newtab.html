@@ -4,20 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>New Tab</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Big+Shoulders+Display:wght@800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Google Fonts: Big Shoulders Display (Clock), Caveat (Greeting), and Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Caveat:wght@500;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Background Video & Dimming Overlay -->
+  <video id="bg-video" class="bg-video hidden" autoplay loop muted playsinline></video>
+  <div id="bg-overlay" class="bg-overlay"></div>
 
-  <!-- Top-Right Bookmark Symbol Button -->
   <!-- Top-Right Hover-Expand Bookmark Wrapper -->
   <div id="bookmark-wrapper" class="bookmark-wrapper">
     <button id="bookmark-toggle-btn" class="bookmark-toggle-btn" title="Bookmarks">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
       </svg>
       <span class="bookmark-label">Bookmark</span>
@@ -31,165 +37,209 @@
     </div>
   </div>
 
-
-  <!-- Background Video Layer (Hidden unless a video is uploaded) -->
-  <video id="bg-video" class="bg-video hidden" autoplay loop muted playsinline></video>
-  <div id="bg-overlay" class="bg-overlay hidden"></div>
-
+  <!-- Main Centered Content -->
   <main class="container">
-    <!-- True Frosted Glass Clock (Pinned to Top) -->
+    <!-- 1. Frosted Glass Clock with Glass Numbers -->
     <div class="hyper-clock-wrapper">
-      <div id="hyper-date" class="hyper-date">Sat, Oct 24</div>
-      
+      <div id="date-display" class="hyper-date">Monday, October 26</div>
       <div class="clock-glass-stage">
-        <svg class="clock-svg" viewBox="0 0 520 210" preserveAspectRatio="xMidYMid meet">
-          <defs>
-            <linearGradient id="glass-rim-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="rgba(255, 255, 255, 0.55)" />
-              <stop offset="200%" stop-color="rgba(255, 255, 255, 0.36)" />
-              <stop offset="100%" stop-color="rgba(255, 255, 255, 0.42)" />
-            </linearGradient>
+        <svg class="clock-svg" viewBox="0 0 360 105">
+          <!-- Hours -->
+          <text
+            id="clock-hours"
+            class="svg-clock-font svg-clock-glass"
+            x="160"
+            y="90"
+            text-anchor="end"
+          >
+            00
+          </text>
 
-            <linearGradient id="glass-fill-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="rgba(255, 255, 255, 0.05)" />
-              <stop offset="45%" stop-color="rgba(255, 255, 255, 0.06)" />
-              <stop offset="100%" stop-color="rgba(255, 255, 255, 0.05)" />
-            </linearGradient>
-          </defs>
+          <!-- Centered Circular Colon Dots -->
+          <circle class="svg-clock-glass" cx="180" cy="42" r="5" />
+          <circle class="svg-clock-glass" cx="180" cy="64" r="5" />
 
-          <!-- Split elements so the colon can be precisely centered vertically -->
-          <text x="45%" y="84%" text-anchor="end" class="svg-clock-font svg-clock-rim" id="clock-hours">10</text>
-          <text x="50%" y="74%" text-anchor="middle" class="svg-clock-font svg-clock-rim" id="clock-colon">:</text>
-          <text x="54%" y="84%" text-anchor="start" class="svg-clock-font svg-clock-rim" id="clock-minutes">22</text>
+          <!-- Minutes -->
+          <text
+            id="clock-mins"
+            class="svg-clock-font svg-clock-glass"
+            x="200"
+            y="90"
+            text-anchor="start"
+          >
+            00
+          </text>
         </svg>
       </div>
     </div>
 
-    <!-- Frosted Search Bar -->
-    <form class="glass-search-box" action="https://www.google.com/search" method="GET">
-      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <!-- 2. Frosted Glass Search Bar -->
+    <form id="search-form" class="glass-search-box" action="https://www.google.com/search" method="GET">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
-
-      <input 
-        type="text" 
-        name="q" 
-        class="glass-input" 
-        placeholder="Search Google or enter URL" 
-        autocomplete="off" 
-         
+      <input
+        type="text"
+        id="search-input"
+        name="q"
+        class="glass-input"
+        placeholder="Search Google or type a URL..."
+        autocomplete="off"
       />
-
     </form>
 
-    <!-- Frosted Glass Shortcuts with Real Colored Icons -->
+    <!-- 3. Frosted Glass Shortcuts Grid (Updated Order) -->
     <div class="shortcuts-grid">
-      <a href="https://www.youtube.com" class="glass-tile" title="YouTube">
+      <a href="https://www.youtube.com" class="glass-tile">
         <div class="tile-icon">
-          <img src="https://www.google.com/s2/favicons?domain=youtube.com&sz=128" alt="YouTube" />
+          <img src="https://www.google.com/s2/favicons?domain=youtube.com&sz=64" alt="YouTube" />
         </div>
         <span class="tile-title">YouTube</span>
       </a>
 
-      <a href="https://gemini.google.com" class="glass-tile" title="Gemini">
+      <a href="https://gemini.google.com" class="glass-tile">
         <div class="tile-icon">
-          <img src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=128" alt="Gemini" />
+          <img src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=64" alt="Gemini" />
         </div>
         <span class="tile-title">Gemini</span>
       </a>
 
-      <a href="https://chatgpt.com" class="glass-tile" title="ChatGPT">
+      <a href="https://chat.openai.com" class="glass-tile">
         <div class="tile-icon">
-          <img src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=128" alt="ChatGPT" />
+          <img src="https://www.google.com/s2/favicons?domain=chatgpt.com&sz=64" alt="ChatGPT" />
         </div>
         <span class="tile-title">ChatGPT</span>
       </a>
 
-      <a href="https://web.whatsapp.com" class="glass-tile" title="WhatsApp">
+      <a href="https://web.whatsapp.com" class="glass-tile">
         <div class="tile-icon">
-          <img src="https://www.google.com/s2/favicons?domain=whatsapp.com&sz=128" alt="WhatsApp" />
+          <img src="https://www.google.com/s2/favicons?domain=whatsapp.com&sz=64" alt="WhatsApp" />
         </div>
         <span class="tile-title">WhatsApp</span>
       </a>
 
-      <a href="https://www.flipkart.com" class="glass-tile" title="Flipkart">
+      <a href="https://www.flipkart.com" class="glass-tile">
         <div class="tile-icon">
-          <img src="https://www.google.com/s2/favicons?domain=flipkart.com&sz=128" alt="Flipkart" />
+          <img src="https://www.google.com/s2/favicons?domain=flipkart.com&sz=64" alt="Flipkart" />
         </div>
         <span class="tile-title">Flipkart</span>
       </a>
 
-      <a href="https://www.amazon.in" class="glass-tile" title="Amazon">
+      <a href="https://www.amazon.in" class="glass-tile">
         <div class="tile-icon">
-          <img src="https://www.google.com/s2/favicons?domain=amazon.in&sz=128" alt="Amazon" />
+          <img src="https://www.google.com/s2/favicons?domain=amazon.in&sz=64" alt="Amazon" />
         </div>
         <span class="tile-title">Amazon</span>
       </a>
 
-      <a href="https://music.apple.com" class="glass-tile" title="Apple Music">
+      <a href="https://music.apple.com" class="glass-tile">
         <div class="tile-icon">
-          <img src="https://www.google.com/s2/favicons?domain=music.apple.com&sz=128" alt="Apple Music" />
+          <img src="https://www.google.com/s2/favicons?domain=music.apple.com&sz=64" alt="Apple Music" />
         </div>
         <span class="tile-title">Apple Music</span>
       </a>
     </div>
-
-
-
   </main>
 
-
-  </main>
-
-  <!-- Bottom-Left Greeting Section -->
+  <!-- Bottom-Left Greeting -->
   <div class="bottom-section">
     <div class="greeting-block">
-      <div id="greeting-text" class="greeting-text">Good Night</div>
-      <div id="greeting-sub" class="greeting-sub">Cloudy night.</div>
+      <div id="greeting-text" class="greeting-text">Good Morning, Vedanth</div>
+      <div id="greeting-sub" class="greeting-sub">Let's build something great today.</div>
     </div>
   </div>
 
-
-  <!-- Bottom-Right Edit Icon & Glass Popover Menu -->
+  <!-- Bottom-Right Hover-Expand Edit Button & Glass Menu -->
   <div class="bg-controls">
-    <input type="file" id="photo-upload" accept="image/*" hidden />
-    <input type="file" id="video-upload" accept="video/mp4,video/webm,video/ogg" hidden />
-
     <div id="bg-menu" class="glass-menu hidden">
-      <label for="photo-upload" class="menu-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <button id="add-shortcut-btn" class="menu-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+          <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+          <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+          <path d="M10 17.5h-7M6.5 14v7"></path>
+        </svg>
+        Add Shortcut
+      </button>
+
+      <button id="add-bookmark-btn" class="menu-item menu-divider">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          <line x1="12" y1="7" x2="12" y2="13"></line>
+          <line x1="9" y1="10" x2="15" y2="10"></line>
+        </svg>
+        Add Bookmark
+      </button>
+
+      <button id="remove-shortcut-btn" class="menu-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+          <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+          <line x1="14" y1="17.5" x2="21" y2="17.5"></line>
+        </svg>
+        Remove Shortcut
+      </button>
+
+      <button id="remove-bookmark-btn" class="menu-item menu-divider">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+          <line x1="9" y1="10" x2="15" y2="10"></line>
+        </svg>
+        Remove Bookmark
+      </button>
+
+      <button id="upload-img-btn" class="menu-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
           <circle cx="8.5" cy="8.5" r="1.5"></circle>
           <polyline points="21 15 16 10 5 21"></polyline>
         </svg>
-        <span>Upload Photo</span>
-      </label>
+        Set Image Wallpaper
+      </button>
 
-      <label for="video-upload" class="menu-item">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <button id="upload-vid-btn" class="menu-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="23 7 16 12 23 17 23 7"></polygon>
           <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
         </svg>
-        <span>Upload Video</span>
-      </label>
+        Set Live Video
+      </button>
 
-      <button id="bg-reset-btn" class="menu-item reset-item hidden">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 6h18"></path>
+      <button id="reset-bg-btn" class="menu-item reset-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="3 6 5 6 21 6"></polyline>
           <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
         </svg>
-        <span>Reset to Black</span>
+        Reset Default
       </button>
     </div>
 
-    <button id="edit-bg-btn" class="glass-edit-btn" title="Customize Background">
+    <button id="edit-bg-btn" class="glass-edit-btn" title="Customize">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 20h9"></path>
         <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
       </svg>
       <span class="edit-label">Edit</span>
     </button>
+
+    <input type="file" id="bg-img-input" accept="image/*" class="hidden" />
+    <input type="file" id="bg-vid-input" accept="video/mp4,video/webm" class="hidden" />
+  </div>
+
+  <!-- Frosted Glass Modal -->
+  <div id="custom-modal-overlay" class="modal-overlay hidden">
+    <div class="glass-modal">
+      <h3 id="modal-title" class="modal-title">Add Shortcut</h3>
+      <form id="custom-item-form" autocomplete="off">
+        <input type="text" id="item-name-input" class="modal-input" placeholder="Name (e.g., YouTube)" required maxlength="20" />
+        <input type="text" id="item-url-input" class="modal-input" placeholder="URL (e.g., youtube.com)" required />
+        <div class="modal-actions">
+          <button type="button" id="modal-cancel-btn" class="modal-btn cancel-btn">Cancel</button>
+          <button type="submit" class="modal-btn save-btn">Add</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <script src="script.js"></script>
