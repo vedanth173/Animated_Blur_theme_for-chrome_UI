@@ -248,24 +248,20 @@ updateGreeting();
 setInterval(updateGreeting, 60000);
 
 // =========================================
-// Toggle Custom Bookmark Bar
+// Toggle / Hover Custom Bookmark Bar
 // =========================================
+const bookmarkWrapper = document.getElementById('bookmark-wrapper');
 const bookmarkBtn = document.getElementById('bookmark-toggle-btn');
-const bookmarkBar = document.getElementById('bookmark-bar');
 
-if (bookmarkBtn && bookmarkBar) {
-  bookmarkBar.classList.add('hidden');
-
+if (bookmarkWrapper && bookmarkBtn) {
   bookmarkBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    bookmarkBar.classList.toggle('hidden');
-    bookmarkBtn.classList.toggle('active');
+    bookmarkWrapper.classList.toggle('active');
   });
 
   document.addEventListener('click', (e) => {
-    if (!bookmarkBar.contains(e.target) && e.target !== bookmarkBtn) {
-      bookmarkBar.classList.add('hidden');
-      bookmarkBtn.classList.remove('active');
+    if (!bookmarkWrapper.contains(e.target)) {
+      bookmarkWrapper.classList.remove('active');
     }
   });
 }

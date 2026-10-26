@@ -14,19 +14,21 @@
 <body>
 
   <!-- Top-Right Bookmark Symbol Button -->
-  <button id="bookmark-toggle-btn" class="bookmark-toggle-btn" title="Toggle Bookmarks">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
-    </svg>
-  </button>
+  <!-- Top-Right Hover-Expand Bookmark Wrapper -->
+  <div id="bookmark-wrapper" class="bookmark-wrapper">
+    <button id="bookmark-toggle-btn" class="bookmark-toggle-btn" title="Bookmarks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+      </svg>
+      <span class="bookmark-label">Bookmark</span>
+    </button>
 
-  <!-- Frosted Glass Bookmark Bar (Hidden by default) -->
-  <div id="bookmark-bar" class="bookmark-bar hidden">
-    <!-- Sample Bookmarks (You can replace or dynamically fetch these) -->
-    <a href="https://github.com" class="bookmark-item">GitHub</a>
-    <a href="https://leetcode.com" class="bookmark-item">LeetCode</a>
-    <a href="https://mail.google.com" class="bookmark-item">Gmail</a>
-    <a href="https://linkedin.com" class="bookmark-item">LinkedIn</a>
+    <div id="bookmark-bar" class="bookmark-bar">
+      <a href="https://github.com" class="bookmark-item">GitHub</a>
+      <a href="https://leetcode.com" class="bookmark-item">LeetCode</a>
+      <a href="https://mail.google.com" class="bookmark-item">Gmail</a>
+      <a href="https://linkedin.com" class="bookmark-item">LinkedIn</a>
+    </div>
   </div>
 
 
@@ -186,6 +188,7 @@
         <path d="M12 20h9"></path>
         <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
       </svg>
+      <span class="edit-label">Edit</span>
     </button>
   </div>
 

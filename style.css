@@ -350,12 +350,15 @@ body:has(.glass-search-box:hover) .bg-video {
 }
 
 .glass-edit-btn {
-  width: 44px;
   height: 44px;
-  border-radius: 50%;
+  max-width: 44px; /* Starts as a circle */
+  padding: 0 13px;
+  border-radius: 999px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  gap: 0px;
+  overflow: hidden;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
@@ -364,18 +367,43 @@ body:has(.glass-search-box:hover) .bg-video {
   cursor: pointer;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85),
               inset 0 1px 1px rgba(255, 255, 255, 0.18);
-  transition: all 0.25s var(--ease-out);
+  transition: max-width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              padding 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              gap 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.25s ease,
+              border-color 0.25s ease,
+              color 0.25s ease,
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s ease;
 }
 
 .glass-edit-btn svg {
   width: 18px;
   height: 18px;
-  transition: transform 0.25s ease;
+  stroke: currentColor;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.edit-label {
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Smoothly expand pill & reveal "Edit" text on hover (without opening the menu) */
 .glass-edit-btn:hover,
 .glass-edit-btn.active {
-  transform: translateY(-2px) scale(1.05);
+  max-width: 120px;
+  padding: 0 16px;
+  gap: 9px;
+  transform: translateY(-2px);
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.3);
   color: #ffffff;
@@ -383,8 +411,19 @@ body:has(.glass-search-box:hover) .bg-video {
               inset 0 1px 2px rgba(255, 255, 255, 0.28);
 }
 
+.glass-edit-btn:hover .edit-label,
+.glass-edit-btn.active .edit-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.glass-edit-btn:hover svg {
+  transform: scale(1.06);
+}
+
 .glass-edit-btn:active {
   transform: scale(0.96);
+}
 }
 
 .glass-menu {
@@ -551,19 +590,30 @@ body:has(.glass-search-box:hover) .bg-video {
    ========================================= */
 
 /* =========================================
-   Compact Bookmark Symbol Button
+   Hover-Expand Bookmark Button & Vertical Menu
    ========================================= */
 
-.bookmark-toggle-btn {
+.bookmark-wrapper {
   position: fixed;
   top: 24px;
   right: 28px;
-  width: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 30;
+}
+
+/* Expanding Pill Button */
+.bookmark-toggle-btn {
   height: 44px;
-  border-radius: 50%;
+  max-width: 44px; /* Starts as a circle */
+  padding: 0 13px;
+  border-radius: 999px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  gap: 0px;
+  overflow: hidden;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
@@ -572,50 +622,106 @@ body:has(.glass-search-box:hover) .bg-video {
   cursor: pointer;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.85),
               inset 0 1px 1px rgba(255, 255, 255, 0.18);
-  transition: all 0.25s var(--ease-out);
-  z-index: 30;
+  transition: max-width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              padding 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              gap 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.25s ease,
+              border-color 0.25s ease,
+              color 0.25s ease,
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s ease;
 }
 
 .bookmark-toggle-btn svg {
   width: 18px;
   height: 18px;
   stroke: currentColor;
-  transition: transform 0.25s ease;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.bookmark-toggle-btn:hover,
-.bookmark-toggle-btn.active {
-  transform: translateY(-2px) scale(1.05);
+.bookmark-label {
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Smoothly expand button & reveal "Bookmark" text on hover */
+.bookmark-wrapper:hover .bookmark-toggle-btn,
+.bookmark-wrapper.active .bookmark-toggle-btn {
+  max-width: 150px;
+  padding: 0 16px;
+  gap: 9px;
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.3);
   color: #ffffff;
+  transform: translateY(-1px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.95),
               inset 0 1px 2px rgba(255, 255, 255, 0.28);
 }
 
-.bookmark-toggle-btn:active {
-  transform: scale(0.96);
+.bookmark-wrapper:hover .bookmark-label,
+.bookmark-wrapper.active .bookmark-label {
+  opacity: 1;
+  transform: translateX(0);
 }
 
+.bookmark-wrapper:hover .bookmark-toggle-btn svg {
+  transform: scale(1.06);
+}
+
+/* Vertical Dropdown Bookmark List */
 .bookmark-bar {
-  position: fixed;
-  top: 80px;
-  right: 28px; /* Positioned on the right under the button */
+  margin-top: 10px;
   display: flex;
-  flex-direction: column; /* Stack items vertically */
+  flex-direction: column;
   align-items: stretch;
   gap: 6px;
   padding: 10px;
-  min-width: 160px;
+  min-width: 165px;
   border-radius: 16px;
   background: rgba(20, 20, 22, 0.75);
   backdrop-filter: blur(28px) saturate(190%);
   -webkit-backdrop-filter: blur(28px) saturate(190%);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9);
-  z-index: 30;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9),
+              inset 0 1px 1px rgba(255, 255, 255, 0.18);
   transform-origin: top right;
-  animation: menuPop 0.2s var(--ease-out) forwards;
+  
+  /* Hidden state (smoothly transitions in on hover) */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(0.92) translateY(-8px);
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.28s;
+  position: relative;
+}
+
+/* Invisible bridge over the 10px gap so hover doesn't break when moving mouse down */
+.bookmark-bar::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 14px;
+}
+
+/* Open dropdown on hover or click */
+.bookmark-wrapper:hover .bookmark-bar,
+.bookmark-wrapper.active .bookmark-bar {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: scale(1) translateY(0);
 }
 
 .bookmark-item {
@@ -633,4 +739,5 @@ body:has(.glass-search-box:hover) .bg-video {
 .bookmark-item:hover {
   background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
+  transform: translateX(2px);
 }
